@@ -1,0 +1,58 @@
+<ion-view view-title="Matakuliah">
+  <ion-content overflow-scroll="false">
+    <div class="card">
+        <div class="row">
+            <div class="col">
+                <h4 class="text-center">Jadwal Mata Kuliah</h4>
+            </div>
+        </div>
+        <div class="item item-body" style="padding:0px;margin-bottom:0px">
+            <table ng-table="tableParams" data-role="table" data-mode="columntoggle" class="table table-bordered table-striped table-condensed" show-filter="false">
+                <tr ng-repeat="jadwal in jadwal_mahasiswa">
+                    <td title="'Nama Makul'">
+                        <p>{{jadwal.NamaMakul}}</p>
+                    </td>
+                    <td title="'Waktu'">
+                        <p>{{jadwal.Jadwal | splitStringWaktu}}</p>
+                    </td>
+                    <td title="'Ruang'">
+                        <p>{{jadwal.Jadwal | splitStringRuang}}</p>
+                    </td>
+                    <td title="'Sks'">
+                        <p>{{jadwal.Sks}}</p>
+                    </td>
+                    <td title="'Dosen Pengampu'">
+                        <p>{{jadwal.DosenPengajar}}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="row">
+            <div class="col">
+                <h4>Matakuliah Wajib Belum Diambil</h4>
+            </div>
+        </div>
+        <div class="item item-body" style="padding:0px;">
+            <table ng-table="table_makultertinggal" data-role="table" data-mode="columntoggle" class="table table-bordered table-striped table-condensed" show-filter="false" style="margin-bottom:0px;">
+                <tr ng-repeat="row in makul_tertinggal">
+                    <td title="'Kode Makul'" filter="{ KodeMakul: 'text'}">
+                        <p>{{row.KodeMakul}}</p>
+                    </td>
+                    <td title="'Nama Makul'" filter="{ NamaMakul: 'text'}">
+                        <p>{{row.NamaMakul}}</p>
+                    </td>
+                    <td title="'SKS'" filter="{ Sks: 'text'}">
+                        <p>{{row.Sks}}</p>
+                    </td>
+                    <td title="'Presensi'" filter="{ RekomendasiPengambilan: 'text'}">
+                        <p>{{row.RekomendasiPengambilan}}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</ion-content>
+</ion-view>

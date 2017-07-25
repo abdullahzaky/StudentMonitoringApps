@@ -1,0 +1,117 @@
+<ion-view view-title="Dashboard">
+  <ion-content class="padding" overflow-scroll="false">
+      <!--<div class="row" style="margin-top:0px; margin-bottom:0px;">
+          <div class="card">
+              <div class="item item-text-wrap">
+                  <p>
+                      <caption>
+                          Student MonitApp (Aplikasi) memudahkan pemantauan mahasiwa dengan memberikan data statistik sebaran kondisi mahasiswa.
+                          Berbagai kondisi mahasiswa dari yang terancam mendapat SP hingga yang terancam tidak dapat melanjutkan studi, dapat dipantau dalam aplikasi.
+                      </caption>
+                  </p>
+              </div>
+          </div>
+      </div>-->
+
+      <div class="card" ng-show="show_kritis">
+          <div class="item item-text-wrap text-center">
+              <h2><i class="icon ion-android-alert energized"></i> Warning</h2>
+          </div>
+          <div class="item item-text-wrap">
+              <div ng-if="show_kritis">
+                  <p>{{mahasiswa.NamaMahasiswa}} termasuk di dalam daftar mahasiswa kritis.</p>
+                  <p>Status mahasiswa saat ini {{model_kritis.Status}}</p>
+              </div>
+          </div>
+      </div>
+
+        <div class="card" style="margin-top:0px; margin-bottom:0px;">
+            <div class="row">
+                <div class="col col-67">
+                    <h4>{{mahasiswa.NamaMahasiswa}}</h4>
+                    <h5>SKS Kumulatif : {{mahasiswa.Sks}}
+                        <span ng-if="mahasiswa.Sks<144"><br/>Kurang {{144-mahasiswa.Sks}} SKS lagi dari syarat kelulusan</span>
+                        <span ng-if="mahasiswa.Sks>=144">, lebih {{mahasiswa.Sks-144}} SKS dari syarat kelulusan</span>
+                    </h5>
+                    <h5>IPK : {{mahasiswa.Ipk}} 
+                    <span ng-if="mahasiswa.Ipk<2.5">(Kurang Memuaskan)</span>
+                    <span ng-if="mahasiswa.Ipk<2.75 && mahasiswa.Ipk>=2.5">(Memuaskan)</span>
+                    <span ng-if="mahasiswa.Ipk<3.5 && mahasiswa.Ipk>=2.75">(Sangat Memuaskan)</span>
+                    <span ng-if="mahasiswa.Ipk>=3.5">(Memuaskan)</span></h5>
+                    <h5>IP tertinggi : {{max_ips}}</h5> 
+                </div>
+                <div class="col">
+                    <button class="button button-calm" ng-click="openModal(biodata)">Biodata</button>
+                </div>
+            </div>
+        </div>
+
+      <div class="card" ng-if="biodata.Semester>=7">
+          <div class="item item-header">
+              <h2><i class="icon ion-ios-information positive"></i> Informasi Kurikulum Akhir</h2>
+          </div>
+          <div class="item item-body">
+              <ol type="disc" ng-repeat="row in nilai_mhs">
+                  <li ng-if="row.NamaMakul == 'Kerja Praktik' && (row.GradeNilai != 'K')">- Telah mengambil <b>Kerja Praktik</b> dengan nilai {{row.GradeNilai}}</li>
+                  <li ng-if="row.NamaMakul == 'Kerja Praktik' && (row.GradeNilai == 'K')">- Sedang mengambil <b>Kerja Praktik</b></li>
+                  <li ng-if="row.NamaMakul == 'KKN' && (row.GradeNilai != 'K')">- Telah mengambil <b>KKN</b> dengan nilai {{row.GradeNilai}}</li>
+                  <li ng-if="row.NamaMakul == 'KKN' && (row.GradeNilai == ' ' || row.GradeNilai == 'K')">- Sedang mengambil <b>KKN</b></li>
+                  <li ng-if="row.NamaMakul == 'Skripsi' && (row.GradeNilai != 'K')">- Telah mengambil <b>Skripsi</b> dengan nilai {{row.GradeNilai}}</li>
+                  <li ng-if="row.NamaMakul == 'Skripsi' && (row.GradeNilai == 'K')">- Sedang mengambil <b>Skripsi</b></li>
+              </ol>
+              <ul ng-if="CountKerjaPraktik==false">- Mahasiswa belum mengambil <b>Kerja Praktik</b></ul>
+              <ul ng-if="CountKKN==false">- Mahasiswa belum mengambil <b>KKN</b></ul>
+              <ul ng-if="CountSkripsi==false">- Mahasiswa belum mengambil <b>Skripsi</b></ul>
+          </div>
+      </div>
+
+      <div class="card">
+          <div class="item item-header">
+              <h2><i class="icon ion-ios-information positive"></i> Daftar Praktikum</h2>
+          </div>
+          <div class="item item-body">
+              <div>
+                  <h3>Praktikum Selesai</h3>
+                  <ol type="disc" ng-repeat="row in makul_praktikum">
+                      <li ng-if="row.GradeNilai != 'K'">-{{row.NamaMakul}} : {{row.GradeNilai}}</li>
+                  </ol>
+              </div>
+              <div>
+                  <h3 ng-if="filtered_prakt.length!=0">Praktikum Belum Diambil</h3>
+                  <ol type="disc" ng-repeat="row in filtered_prakt">
+                      <li>- {{row.NamaMakul}}</li>
+                  </ol>
+              </div>
+          </div>
+      </div>
+
+      <div class="card">
+          <div class="item item-header">
+              <h2>Grafik Tren IPS</h2>
+          </div>
+          <div class="item item-body">
+              <canvas id="line" class="chart chart-line" chart-data="data_ips"
+                      chart-labels="labels_period" chart-options="options"
+                      chart-dataset-override="datasetOverride" chart-click="onClick"></canvas>
+          </div>
+      </div>
+      <div class="card">
+          <div class="item item-header">
+              <h2>Grafik Tren Sks</h2>
+          </div>
+          <div class="item item-body">
+              <canvas id="line" class="chart chart-line" chart-data="data_sks"
+                      chart-labels="labels_period" chart-options="options"
+                      chart-dataset-override="datasetOverride" chart-click="onClick"></canvas>
+          </div>
+      </div>
+      <div>
+          <footer class="col col-offset-30 text-center">
+              <button class="button button-small button-assertive" ng-click="logoutParent()">
+                  Logout
+              </button>
+              <!--<p class="copyright text-center"><i class="icon ion-code"></i>Abdullah Zaky</p>-->
+          </footer>
+      </div>  
+</ion-content>
+</ion-view>

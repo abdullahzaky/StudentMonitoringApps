@@ -1,0 +1,82 @@
+<ion-view view-title="Mahasiswa">
+    <ion-content overflow-scroll="false">
+        <ion-list>
+            <div class="list list-item list-positive">
+                <label class="item item-input item-select item-positive">
+                    <div class="input-label">
+                    </div>
+                    <select ng-model="myChosenFilter" ng-change="selectFilter(myChosenFilter, filter)" ng-options="option.value as option.name for option in options" ng-init="selectFilter(myChosenFilter, filter)">
+                    </select>
+                </label>
+            </div>
+
+            <button class="button button-small button-assertive button-block col-30" ng-click="showme = !showme">Custom Filter</button>
+
+            <div class="list" ng-show="showme">
+                <div>
+                    <div class="row" ng-if="myChosenFilter != 'kritis-dua'">
+                        <input class="item item-input item-stable col col-40 col-offset-10" ng-model="filter.ipk.tinggi" type="text" placeholder="Ipk Tertinggi">
+                        <input class="item item-input item-stable col col-40 col-offset-10" ng-model="filter.ipk.rendah" type="text" placeholder="Ipk Terendah">
+                    </div>
+                </div>
+                <div>
+                    <div class="row" ng-if="myChosenFilter != 'kritis-dua'">
+                        <input class="item item-input item-stable col col-40 col-offset-10" ng-model="filter.sks.tinggi" type="text" placeholder="Sks Tertinggi">
+                        <input class="item item-input item-stable col col-40 col-offset-10" ng-model="filter.sks.rendah" type="text" placeholder="Sks Terendah">
+                    </div>
+                </div>
+                <div ng-if="myChosenFilter == 'all'">
+                    <div class="row">
+                        <input class="item item-input item-stable col col-40 col-offset-10" ng-model="filter.angkatan" type="text" placeholder="Angkatan">
+                    </div>
+                </div>
+                <div ng-if="myChosenFilter == 'kritis' || myChosenFilter == 'kritis-dua'">
+                    <div class="row">
+                        <input class="item item-input item-stable col col-40 col-offset-10" ng-model="filter.angkatan" type="text" placeholder="Angkatan">
+                        <div class="col col-offset-10" style="float:right;">Kelolosan</div>
+                        <label class="checkbox" style="padding:0px; margin:0px; margin-right:10px"><input ng-model="filter.kelolosan" type="checkbox"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="padding" style="margin-top:0px;">
+                <div class="text-center">
+                    <button ng-click="selectFilter(myChosenFilter, filter)" class="button button-small button-balanced">Search</button>
+                </div>
+            </div>
+
+
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                    <h4>Results</h4>
+                </div>
+            </div>
+            <div class="item item-text-wrap" style="padding:0px;">
+                <table ng-table="tableParams" data-role="table" data-mode="columntoggle" class="table table-bordered table-striped table-condensed" show-filter="true">
+                    <tr ng-repeat="mahasiswa in $data">
+                        <td title="'Nim'" filter="{ IdMahasiswa: 'text'}" sortable="'IdMahasiswa'">
+                            <a href="#/tab/mahasiswa/{{mahasiswa.IdMahasiswa}}">{{mahasiswa.IdMahasiswa}}</a>
+                        </td>
+                        <td title="'Nama'" filter="{ NamaMahasiswa: 'text'}" sortable="'NamaMahasiswa'" ng-if="myChosenFilter == 'all'">
+                            {{mahasiswa.NamaMahasiswa}}
+                        </td>
+                        <td title="'SKS'" filter="{ Sks: 'number'}" sortable="'Sks'" ng-if="myChosenFilter == 'all'">
+                            {{mahasiswa.Sks}}
+                        </td>
+                        <td title="'IPK'" filter="{ Ipk: 'number'}" sortable="'Ipk'">
+                            {{mahasiswa.Ipk}}
+                        </td>
+                        <td title="'Status'" filter="{ Status: 'text'}" sortable="'Status'" ng-if="myChosenFilter == 'kritis' || myChosenFilter == 'kritis-dua'">
+                            {{mahasiswa.Status}}
+                        </td>
+                        <td title="'Kelolosan'" filter="{ Kelolosan: 'text'}" sortable="'Kelolosan'" ng-if="myChosenFilter == 'kritis' || myChosenFilter == 'kritis-dua'">
+                            {{mahasiswa.Kelolosan == true ? "Terselamatkan" : "Tidak Terselamatkan"}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

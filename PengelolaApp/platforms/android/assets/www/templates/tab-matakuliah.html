@@ -1,0 +1,66 @@
+<ion-view view-title="Matakuliah">
+  <ion-content overflow-scroll="false">
+
+      <div class="card">
+          <div class="row">
+              <div class="col">
+                  <h4>Nilai Setiap Matakuliah Aktif</h4>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <div class="col col-33 text-right">
+                      <select ng-model="option" ng-change="selectNilai(option)"
+                              ng-options="option.IdMakul as option.NamaMakul for option in all_jadwal | filter: emptyOrNull" ng-init="select(option_makul[0])">
+                      </select>
+                  </div>
+              </div>
+          </div>
+
+          <div class="item item-body" style="padding:0px;">
+              <table ng-table="table_nilaimakul" data-role="table" data-mode="columntoggle" class="table table-bordered table-striped table-condensed"
+                     show-filter="true" style="margin-bottom:0px;">
+                  <tr ng-repeat="row in nilai_makul">
+                      <td title="'NIM'" filter="{ IdMahasiswa: 'text'}">
+                          <p>{{row.IdMahasiswa}}</p>
+                      </td>
+                      <td title="'Nilai'" filter="{ Nilai: 'text'}">
+                          <p>{{row.GradeNilai}}</p>
+                      </td>
+                      <td title="'Presensi'" filter="{ Kehadiran: 'text'}">
+                          <p>{{row.Kehadiran}}</p>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+
+      <div class="card">
+          <div class="row">
+              <div class="col">
+                  <h4>Daftar Matakuliah Aktif</h4>
+              </div>
+          </div>
+          <div class="item item-body" style="padding:0px;">
+              <table ng-table="tableParams" data-role="table" data-mode="columntoggle" class="table table-bordered table-striped table-condensed"
+                     show-filter="true" style="margin-bottom:0px;">
+                  <tr ng-repeat="row in $data">
+                      <td title="'Nama Makul'" sortable="'NamaMakul'" filter="{ NamaMakul: 'text'}">
+                          <p>{{row.NamaMakul}}</p>
+                      </td>
+                      <td title="'Waktu'" sortable="'Jadwal'" filter="{ Jadwal: 'text'}">
+                          <p>{{row.Jadwal}}</p>
+                      </td>
+                      <td title="'Sks'" sortable="'Sks'" filter="{ Sks: 'text'}">
+                          <p>{{row.Sks}}</p>
+                      </td>
+                      <td title="'Dosen Pengampu'" sortable="'DosenPengajar'" filter="{ DosenPengajar: 'text'}">
+                          <p>{{row.DosenPengajar}}</p>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+      </div>
+
+  </ion-content>
+</ion-view>

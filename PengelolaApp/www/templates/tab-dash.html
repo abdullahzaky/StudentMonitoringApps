@@ -1,0 +1,80 @@
+<ion-view view-title="Dashboard">
+  <ion-content class="padding" overflow-scroll="false">
+      <div class="col"><h4>Selamat datang di</h4><h2 style="margin:0px;" class="text-center">Student MonitApp</h2></div>
+      <div class="card">
+          <div class="item item-header">
+              <h2>Sebaran Status Mahasiswa</h2>
+              Angkatan <select ng-model="angkatan_mhs" ng-options="key as key for (key, value) in profilMhs | groupBy: 'Angkatan'" ng-change="pickAngkatan(angkatan_mhs)"
+                                ng-init="pickAngkatan(angkatan_mhs='2010')"></select>
+          </div>
+          <div class="item item-body">
+
+              <canvas id="pie" class="chart chart-pie" chart-data="datapie" chart-labels="labelspie" chart-options="options" chart-click="true"></canvas>
+          </div>
+      </div>
+
+      <div class="row text-center" style="margin:0px;">
+          <div class="col">
+              <div class="card">
+                  <div class="item item-text-wrap">
+                      <h2>Total Mahasiswa Aktif</h2>
+                  </div>
+                  <div class="item">
+                      <h1><div ng-repeat="profil in profilMhs | filter:filterTotalMhs as filtered"></div>{{filtered.length}}</h1> Mahasiswa
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card">
+                  <div class="item item-text-wrap">
+                      <h2>Total Mahasiswa Akhir Kritis</h2>
+                  </div>
+                  <div class="item">
+                      <h1>{{kritisAkhir.length}}</h1> Mahasiswa
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row text-center" style="margin:0px;">
+          <div class="col">
+              <div class="card">
+                  <div class="item item-text-wrap">
+                      <h2>Mahasiswa Kritis Dua Tahun Awal</h2>
+                  </div>
+                  <div class="item">
+                      <h1>{{kritisDua.length}}</h1> Mahasiswa
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="card">
+                  <div class="item item-text-wrap">
+                      <h2>Mahasiswa Kritis Dapat Lolos</h2>
+                  </div>
+                  <div class="item">
+                      <h1><div ng-repeat="kritis in kritisAkhir | filter:filterMhsLolos as kritis"></div><div ng-repeat="kritisdua in kritisDua | filter:filterMhsLolos as duafiltered"></div>
+                      {{kritis.length + duafiltered.length}}
+                      </h1> Mahasiswa
+                  </div>
+              </div>
+          </div>
+      </div>
+ 
+      <div class="card">
+          <div class="item item-header">
+              <h2>Sebaran Mata Kuliah Tertinggal</h2>
+          </div>
+          <div class="item item-body">
+              <canvas id="bar" class="chart chart-bar" chart-data="databar" chart-labels="labelsbar" chart-series="series" chart-click="true"></canvas>
+          </div>
+      </div>
+      <div>
+          <footer class="col col-offset-30 text-center">
+              <button class="button button-small button-assertive" ng-click="logoutParent()">
+                  Logout
+              </button>
+              <!--<p class="copyright text-center"><i class="icon ion-code"></i>Abdullah Zaky</p>-->
+          </footer>
+      </div>  
+</ion-content>
+</ion-view>

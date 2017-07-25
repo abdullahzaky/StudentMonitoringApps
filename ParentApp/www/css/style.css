@@ -1,0 +1,39 @@
+﻿/* Empty. Add your own CSS if you like */
+.row{
+    margin: 0px;
+}
+
+.button-close{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+h1, h2, h3, h4, h5{
+    font-family:Roboto,sans-serif;
+    font-weight:bolder;
+}
+
+* {
+    font-family:Roboto,sans-serif;
+}
+
+form {
+    vertical-align: middle;
+}
+
+#login {
+
+    background-size: cover;
+}
+
+img {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.button.button-light.active, .button.button-light.activated {
+color: #fff;
+opacity: inherit;
+}

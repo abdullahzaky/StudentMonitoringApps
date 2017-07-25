@@ -1,0 +1,56 @@
+<!--
+  This template loads for the 'tab.mahasiswa-detail' state (app.js)
+  'mahasiswa' is a $scope variable created in the MahasiswaCtrl controller (controllers.js)
+  The MahasiswaCtrl pulls data from the Mahasiswa service (service.js)
+  The Mahasiswa service returns an array of mahasiswa data
+-->
+<ion-view>
+  <ion-nav-title>Nilai</ion-nav-title>
+    <ion-content class="padding" overflow-scroll="false">
+        <div class="card">
+            <div class="row">
+                <div class="col col-67">
+                    <h4>Kartu Studi Mahasiswa</h4>
+                </div>
+                <div class="col col-33 text-right">
+                    <select ng-model="searchText" ng-options="row.PeriodeEnroll as row.PeriodeEnroll for row in mhs_summary.EnrollIps"
+                            ng-init="searchText=mhs_summary.EnrollIps[mhs_summary.EnrollIps.length-1].PeriodeEnroll"></select>
+                </div>
+            </div>
+            <div class="item item-text-wrap" style="padding:0px;">
+                <table ng-table="tabel_nilai" data-role="table" data-mode="columntoggle"
+                       class="table table-bordered table-striped table-condensed" show-filter="false" style="margin-bottom:0px;">
+                    <tr ng-repeat="row in all_nilai | filter:searchText">
+                        <td title="'Kode Makul'" filter="{ KodeMakul: 'text'}">
+                            <p>{{row.KodeMakul}}</p>
+                        </td>
+                        <td title="'Nama Makul'" filter="{ NamaMakul: 'text'}">
+                            <p>{{row.NamaMakul}}</p>
+                        </td>
+                        <td title="'SKS'" filter="{ Sks: 'text'}">
+                            <p>{{row.Sks}}</p>
+                        </td>
+                        <td title="'Nilai'" filter="{ GradeNilai: 'text'}">
+                            <p>{{row.GradeNilai}}</p>
+                        </td>
+                        <td title="'Presensi'" filter="{ Kehadiran: 'text'}">
+                            <p>{{row.Kehadiran}}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="item item-text-wrap">
+                <div class="row" style="padding-top:0px;padding-bottom:0px;" ng-repeat="row in mhs_summary.EnrollIps | filter:searchText">
+                    <div class="col">
+                        <p>IP Semester : {{row.Ips}}</p>
+                        <p>SKS Semester : {{row.Sks}}</p>
+                    </div>
+                    <div class="col">
+                        <p>IP Kumulatif : {{mhs_summary.Ipk}}</p>
+                        <p>SKS Kumulatif : {{mhs_summary.Sks}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

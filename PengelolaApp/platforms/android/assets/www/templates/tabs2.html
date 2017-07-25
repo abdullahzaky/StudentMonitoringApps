@@ -1,0 +1,39 @@
+<!--
+  The nav bar that will be updated as we navigate between views.
+-->
+<ion-nav-bar class="bar-stable">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+</ion-nav-bar>
+
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<!--<ion-header-bar class="bar-positive">
+
+</ion-header-bar>-->
+
+
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+    <!--<ion-header-bar class="bar-positive">
+        <h1 class="title"> </h1>
+        <div class="buttons">
+            <button class="button icon ion-home"></button>
+        </div>
+    </ion-header-bar>-->
+    <!-- Chats Tab -->
+    <ion-tab title="Nilai" icon-off="ion-ios-paper-outline" icon-on="ion-ios-paper" href="#/tab2/nilai">
+        <ion-nav-view name="tab2-nilai"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Dashboard Tab -->
+    <ion-tab title="Ringkasan" icon-off="ion-ios-home" icon-on="ion-ios-home" href="#/tab2/parent">
+        <ion-nav-view name="tab2-parent"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Matakuliah" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar" href="#/tab2/makul">
+        <ion-nav-view name="tab2-makul"></ion-nav-view>
+    </ion-tab>
+</ion-tabs>
